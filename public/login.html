@@ -71,16 +71,16 @@ span.psw {
 
 <h2>Login Form</h2>
 
-<form action="login.html" method="post">
+<form action="login.html" id="login-form" method="post">
   
     <img src="logo.png" alt="Workout From Home" class="imgcenter">
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <input type="text" placeholder="Enter Username" id="uname" name="uname" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
         
     <button type="submit">Login</button>
     <label>
@@ -91,11 +91,39 @@ span.psw {
   <div class="container" style="background-color:#f1f1f1">
     <!-- <button type="button" class="cancelbtn">Cancel</button> -->
     <span>
-      New User? <a href="registration.html">Register Now!</a>
+      New User? <a href="/register">Register Now!</a>
     </span>
     <span class="psw"><a href="#">Forgot Password?</a></span>
   </div>
 </form>
+
+<script>
+  const form = document.getElementById('login-form')
+  form.addEventListener('submit', login)
+  async function login(event) {
+    event.preventDefault()
+    const username = document.getElementById('uname').value
+    const password = document.getElementById('psw').value
+
+    const result = await fetch('/login', {
+      method: 'POST',
+      headers: {
+						'Content-Type': 'application/json'
+					},
+      body: JSON.stringify({
+        username,
+        password
+
+      })
+    }).then((res) => res.json())
+
+    if (result.status === 'ok') {
+      console.log("Token: ",result.data)
+    } else {
+      alert(result.error)
+    }
+  }
+</script>
 
 </body>
 </html>
