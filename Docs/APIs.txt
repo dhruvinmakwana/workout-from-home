@@ -1,0 +1,80 @@
+Endpoint:
+POST /exercise/getSessions
+
+Request Body:
+{
+    "userID":123
+}
+
+Responses:
+    Status Code: 200
+    Response Payload:
+    [
+        {
+            "userID": "123",
+            "startedAt": 1634364320687,
+            "endedAt": 1634364617556,
+            "workoutType": 3,
+            "accuracy": 90
+        },
+        {
+            "userID": "123",
+            "startedAt": 1634364445496,
+            "endedAt": 1634364547496,
+            "workoutType": 1,
+            "accuracy": 75,
+        }
+    ]
+
+    Status Code:400
+    Response Payload:
+        {
+            "message": "Invalid Request"
+        }
+
+##############################################################
+Endpoint:
+POST /exercise/startSession
+
+Request Body:
+    {
+        "userID":123,
+        "workoutType":1
+    }
+
+Responses:
+    Status Code: 200
+    Response Payload:
+    {
+        "sessionID": "616aeafe1f7de751dc7f0c6c"
+    }
+
+    Status Code:400
+    Response Payload:
+        {
+            "message": "Invalid Request"
+        }
+##############################################################
+Endpoint:
+POST /exercise/endSession
+
+Request Body:
+    {
+        "sessionID": "616aeafe1f7de751dc7f0c6c",
+        "accuracy":90
+    }
+
+Responses:
+    Status Code: 200
+    Response Payload:
+        {
+            "sessionID": "616aeafe1f7de751dc7f0c6c",
+            "message": "session ended"
+        }
+
+    Status Code:400
+    Response Payload:
+        {
+            "message": "Invalid Request"
+        }
+##############################################################

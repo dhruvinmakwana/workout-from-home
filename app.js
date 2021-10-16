@@ -19,6 +19,7 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 
 const homeRouter=require('./routes/home.routes');
+const exerciseRouter=require('./routes/exercise.routes');
 
 
 
@@ -76,6 +77,7 @@ const server = http.createServer(app);
 
 
 app.use('/', homeRouter);
+app.use('/exercise/', exerciseRouter);
 
 
 
