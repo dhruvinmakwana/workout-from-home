@@ -10,4 +10,4 @@ Installation
 3. create a new file called .env
 4. Install [MongoDB](https://www.mongodb.com/try/download/compass "mongoDB")
 5. Install [MongoDB Compass](https://www.mongodb.com/try/download/compass "mongoDB")
-6. Use the smaple enverinment file provided and change the values of environment varibales accordingly. 
+6. Use the smaple enverinment file provided and change the values of environment variabales accordingly. 
