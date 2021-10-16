@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.post('/startSession', ExcerciseSessionControllers.startSession);
 router.post('/endSession', ExcerciseSessionControllers.endSession);
+router.post('/getSessions', ExcerciseSessionControllers.getSessions);
 
 
 

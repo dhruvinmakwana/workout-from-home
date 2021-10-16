@@ -31,7 +31,18 @@ const endSession = async (req, res, next) => {
     })
 }
 
+const getSessions = async (req, res, next) => {
+    if(!req.body.userID){
+        return res.status(400).json({
+            message:'Invalid Request'
+        })
+    }
+    var userSessions= await ExerciseSession.getUserSessions(req.body.userID)
+    return res.status(200).json(userSessions)
+}
+
 module.exports = {
     startSession,
     endSession,
+    getSessions
   };

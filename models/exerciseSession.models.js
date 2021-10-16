@@ -55,6 +55,13 @@ ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessi
     })
 }
 
+ExerciseSessionSchema.statics.getUserSessions = async function (userID) {
+    var userSessions = await mongoose.model('ExerciseSession').find({
+        userID:userID
+    },"userID startedAt endedAt accuracy workoutType -_id")
+    return userSessions
+}
+
 
 const ExerciseSession = mongoose.model('ExerciseSession', ExerciseSessionSchema);
 module.exports = { ExerciseSession };
