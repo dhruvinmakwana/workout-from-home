@@ -1,3 +1,4 @@
+const { ReturnDocument } = require("mongodb");
 const {ExerciseSession} = require("../models/exerciseSession.models");
 
 const startSession = async (req, res, next) => {
@@ -41,8 +42,18 @@ const getSessions = async (req, res, next) => {
     return res.status(200).json(userSessions)
 }
 
+const workout = async (req, res, next) => {
+    console.log(req.username)
+    return res.render('workout',{user:{
+        username:req.username,
+        email:req.email
+    }
+    })
+}
+
 module.exports = {
     startSession,
     endSession,
-    getSessions
+    getSessions,
+    workout
   };
