@@ -54,9 +54,17 @@ navigator.mediaDevices
     video.srcObject = stream;
     video.onloadedmetadata = function(e) {
       video.play();
-
+      var ARWorkout=new ARWorkoutEngine({
+        userVideo:video,
+        userStream:stream,
+        userCanvas:$('#user-canvas').get(0)
+      })
     };
-
+    // new Tryon({
+    //   userVideo: myVideo,
+    //   userStream: stream,
+    //   // 'url': "https://cdn.plushvie.in/image/tryon/dfg/earrings/PSBOM20570.png"
+    // });
   })
     
 
