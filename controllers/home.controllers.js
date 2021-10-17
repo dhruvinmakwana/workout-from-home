@@ -45,7 +45,7 @@ const login_Post = async (req, res, next) => {
     console.log(req.body);
     const username = req.body.uname;
         password = req.body.psw;
-        user = await User.findOne({ username })
+        user = await User.findOne({ email: username })
         if (!user) {
             return res.render('login',{
                 message: 'Invalid username or password',
@@ -75,8 +75,17 @@ const register_Post = async (req, res, next) => {
     const username = req.body.name, 
         pwd = req.body.psw,
         email = req.body.email,
-        dob = req.body.dob
-        password = await bcrypt.hash(pwd, 10)
+        dob = req.body.dob,
+        pwd2 = req.body.psw2
+    
+    if (pwd != pwd2) {
+        return res.render('register',{
+            message: 'Passwords do not match',
+            messageClass: 'alert-danger'
+        })
+    }
+    password = await bcrypt.hash(pwd, 10)
+    
     try {
         const user = await User.create({
             username,
