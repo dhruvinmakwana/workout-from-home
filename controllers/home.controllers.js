@@ -45,7 +45,7 @@ const login_Post = async (req, res, next) => {
     console.log(req.body);
     const username = req.body.uname;
         password = req.body.psw;
-        user = await User.findOne({ username })
+        user = await User.findOne({ email: username })
         if (!user) {
             return res.render('login',{
                 message: 'Invalid username or password',
