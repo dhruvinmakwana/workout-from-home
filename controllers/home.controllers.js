@@ -94,8 +94,9 @@ const register_Post = async (req, res, next) => {
     } catch (error) {
         if (error.code === 11000) {
 			// duplicate key
+            console.log(error)
             return res.render('register',{
-                message: 'Username already in use',
+                message: 'Username/Email already in use',
                 messageClass: 'alert-danger'
             })
 		}
