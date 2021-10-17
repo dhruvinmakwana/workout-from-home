@@ -22,9 +22,20 @@ const login = (req, res) => {
     
 }
 
+const logout = (req, res) => {
+    const token = req.cookies.access_token;
+    console.log(token)
+    return res.clearCookie("access_token").redirect("login");
+
+    
+}
 
 const dashboard = (req, res) => {
-    return res.render("dashboard")
+    return res.render("dashboard",{user:{
+        username:req.username,
+        email:req.email
+    }
+    })
 }
 
 const login_Post = async (req, res, next) => {
@@ -40,7 +51,7 @@ const login_Post = async (req, res, next) => {
         }
         if (password == user.password) {
             console.log("success")
-            const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY);
+            const token = jwt.sign({ username: user.username,email:user.email }, process.env.SECRET_KEY);
             return res
               .cookie("access_token", token, {
                 httpOnly: true,
@@ -60,5 +71,6 @@ module.exports = {
     register,
     login,
     dashboard,
-    login_Post
+    login_Post,
+    logout
   };
