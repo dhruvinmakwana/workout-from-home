@@ -20,6 +20,7 @@ class ARWorkoutEngine {
     async initializePoseNet(){
         const detectorConfig = {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING};
         this.detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig);
+        $('body').trigger('model-loaded')
         this.POSENET_LOADED=true
     }
     async  initializeCamera() {

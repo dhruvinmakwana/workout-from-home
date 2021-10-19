@@ -29,13 +29,18 @@
     width: 100%;
     height: 100%;
   }
+  .info-message{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  }
 </style>
 <div class="ARWorkoutContainer">
-
     <video id="user-video"></video>
     <canvas id="user-canvas"></canvas>
-
-
+    <div class="info-message"> Initializing.....</div>
 </div>
 
 
@@ -65,6 +70,11 @@ navigator.mediaDevices
     //   userStream: stream,
     //   // 'url': "https://cdn.plushvie.in/image/tryon/dfg/earrings/PSBOM20570.png"
     // });
+  })
+  $(document).ready(function () {
+    $('body').on('model-loaded',function () {
+      $('.info-message').hide()
+    })
   })
     
 
