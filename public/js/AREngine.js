@@ -1,4 +1,6 @@
 class ARWorkoutEngine {
+    static instance
+
     constructor({
         userVideo = "",
         userStream = "",
@@ -15,6 +17,8 @@ class ARWorkoutEngine {
         this.initializePoseNet()
         this.initializeCamera()
         this.POSENET_LOADED=false
+        this.sketcher=new Sketcher(this.userCanvas)
+        ARWorkoutEngine.setInstance(this)
 
     }
     async initializePoseNet(){
@@ -40,19 +44,29 @@ class ARWorkoutEngine {
     async performPredictions(){
         const poses = await this.detector.estimatePoses(this.userVideo);
         console.log(poses)
-        if(poses.length>0){
-            poses[0].keypoints.forEach(element => {
-            console.log()
-            this.userCanvasContext.beginPath();
-            this.userCanvasContext.arc(element.x, element.y, 5, 0, Math.PI*2, true);
-            this.userCanvasContext.closePath();
-            this.userCanvasContext.fillStyle = 'red';
-            this.userCanvasContext.fill();
-            });
-        }
-
+        this.sketcher.drawPredictions(poses)
     }
     drawUserStream(){
         this.userCanvasContext.drawImage(this.userVideo,0,0,this.userVideo.videoWidth, this.userVideo.videoHeight)
+    }
+    updateCanvas(cv){
+        this.userCanvas=cv
+    }
+    updateVideo(video){
+        this.userVideo=video
+    }
+    updateStream(stream){
+        this.userStream=stream
+    }
+    static setInstance(instance){
+            this.instance=instance
+    }
+    static getInstance(){
+        if(!this.instance){
+            throw new Error('Cannot get ARWorkoutEngine instance without building it.')
+        }else{
+            return this.instance
+
+        }
     }
 }
