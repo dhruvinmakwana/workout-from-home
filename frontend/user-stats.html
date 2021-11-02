@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script language="javascript" type="text/javascript" src="js/user-stats.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=date] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #2d3691;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+.imgcenter {
+  display: block;
+  margin-left: 5%;
+  margin-right: auto;
+}
+.icon-bar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+
+.icon-bar a {
+  float: left;
+  width: 7%;
+  text-align: center;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 36px;
+}
+
+.icon-bar a:hover {
+  background-color: #000;
+}
+
+/* Notifications CSS */
+.notification-trigger {
+    color: #333;
+    position: relative;
+    text-decoration: none;
+    float: right;
+    margin: 12px 30px 0 0;
+    font-size: 20px;
+    color: #333;
+}
+.notification-trigger .notification-num {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 16px;
+    display: block;
+    background: #d9232b;
+    color: #fff;
+    top: -4px;
+    right: -11px;
+    font-size: 10px;
+}
+.panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 44px 0 0 0;
+    top: 11%;
+    background-color: #f3f2ec;
+    display: none;
+    z-index: 2;
+}
+.panel.visible {
+    display: block;
+}
+.panel .title {
+    position: absolute;
+    background-color: #fff;
+    color: #484846;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+    z-index: 3;
+    width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .panel {
+        width: 300px;
+        right: 0;
+        border: 1px solid #ddd;
+        box-shadow: -1px 0px 1px #e0ded5; 
+    }
+}
+ul.notification-bar {
+  list-style: none;
+  padding: 60px 10px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+.notification-bar li:not(:first-child) {
+  margin-top: 60px;
+}
+.notification-bar li div {
+  margin-left: 50px;
+  margin-top: -40px;
+  border: 1px solid #c7c6c2;
+  padding: 10px;
+  background-color: #eeede8;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #7b7a76;
+  box-shadow: 1px 1px 2px #dedcd4;
+}
+.notification-bar li i {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  border: 2px solid #008dcb;
+  border-radius: 100%;
+  background-color: white;
+  color: #008dcb;
+}
+.notification-bar li.unread i {
+    background-color: #008dcb;
+    color: #fff;
+}
+.notification-bar li.unread div {
+    border-color: #008dcb;
+    background-color: #008dcb;
+    color: #fff;
+}
+.notification-bar li i:after {
+  content: '';
+  width: 40px;
+  height: 2px;
+  position: absolute;
+  background-color: #ddd;
+  margin-top: 8px;
+  z-index: -1;
+}
+.notification-bar:after {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: #deddd5;
+  position: absolute;
+  top: 0;
+  left: 28px;
+  z-index: -1;
+}
+
+</style>
+</head>
+<body>
+
+<form action="registration.html">
+  <div class="icon-bar">
+    <a href="#"><img class="imgcenter" src="logo.png" alt="Workout From Home" width="50" height="55"></a> 
+    <a href="#" class="notification-trigger" style='float: right !important;'>
+      <i class="glyphicon glyphicon-bell" style='font-size:36px;color:white'></i>
+      <div class='notification-num'>1</div>
+  </a>
+  </div>
+  <div class="panel">
+    <div class="title">Notifications</div>
+    <ul class="notification-bar">
+        <li class="unread">
+            <i class="ion-checkmark"></i>
+            <div>Third notification (new)</div>
+        </li>
+        <li>
+            <i class="ion-paper-airplane"></i>
+            <div>Second notification</div>
+        </li>
+        <li>
+            <i class="ion-plus"></i>
+            <div>First notification</div>
+        </li>
+    </ul>
+</div>
+  <div class="container">
+    
+    <h1>User statistics and History</h1>
+    <hr>
+    <div>
+        <label for="name"><b>Name</b></label>
+        <span class="userName"></span>
+    </div>
+    <hr>
+    <div>
+        <label for="name"><b>Name</b></label>
+        <span class="userName"></span>
+    </div>
+    <hr>
+    <div>
+        <label for="name"><b>Name</b></label>
+        <span class="userName"></span>
+    </div>
+    <hr>
+    <div>
+        <label for="name"><b>Name</b></label>
+        <span class="userName"></span>
+    </div>
+    <hr>
+    <div>
+        <label for="name"><b>Name</b></label>
+        <span class="userName"></span>
+    </div>
+    <hr>
+  </div>
+  
+  <!-- <div class="container signin">
+    <p></p>
+  </div> -->
+</form>
+
+</body>
+<script>
+  $(document).ready(function() {
+    $('.notification-trigger').click(function() {
+        $('.panel').toggleClass('visible');
+    });
+})
+</script>
+</html>
