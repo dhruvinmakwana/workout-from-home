@@ -16,6 +16,10 @@ class ARWorkoutEngineBuilder  {
         this.userCanvas=userCanvas
         return this
     }
+    addDrawingCanvas(drawingCanvas){
+        this.drawingCanvas=drawingCanvas
+        return this
+    }
     
     build(){
         return new ARWorkoutEngine(this)

@@ -10,8 +10,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
   <script src="/js/Sketcher.js"></script>
+  <script src="/js/CanvasAnimator.js"></script>
+  <script src="/js/PoseMapper.js"></script>
   <script src="/js/AREngine.js"></script>
   <script src="/js/AREngineBuilder.js"></script>
+  <script src="/js/fabric.js"></script>
 
   <style>
     #user-video {
@@ -40,11 +43,52 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+    #drawing-canvas,.canvas-container{
+      position: absolute!important;
+    top: 0;
+    left: 0;
+    width: 100%!important;
+    height: 100%!important;
+}
+#drawing-canvas{
+  transform: scaleX(-1);
+}
+.debug p{
+  font-weight: bold;
+  font-size: 30pt;
+}
+.debug{
+  display: flex;
+    justify-content: space-around;
+}
   </style>
   <div class="ARWorkoutContainer">
     <video id="user-video"></video>
     <canvas id="user-canvas"></canvas>
+    <canvas id="drawing-canvas"></canvas>
     <div class="info-message"> Initializing.....</div>
+  </div>
+  <div class="debug">
+    <div>
+      current step:
+      <p id="current-step"></p>
+    </div>
+    <div>
+      next step:
+      <p id="next-step"></p>
+    </div>
+    <div>
+      euclidian distance:
+      <p id="euclidian-distance"></p>
+    </div>
+    <div>
+      Pose status:
+      <p id="pose-status"></p>
+    </div>
+    <div>
+      Reps:
+      <p id="reps"></p>
+    </div>
   </div>
 
 
@@ -67,6 +111,7 @@
             .addUserVideo(video)
             .addUserStream(stream)
             .addUserCanvas($('#user-canvas').get(0))
+            .addDrawingCanvas($('#drawing-canvas').get(0))
             .build()
         };
       })
