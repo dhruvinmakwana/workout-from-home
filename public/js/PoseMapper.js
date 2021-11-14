@@ -89,6 +89,11 @@ class PoseMapper{
         this.canvasAnimator.addObject(this.stepsRight[this.currentStepIndex].movingPoint,"red")
         this.canvasAnimator.addObject(this.stepsRight[this.nextStepIndex].pointOfReference,"green")
     }
+
+    get_reps() {
+        return this.reps
+    }
+
     updateKeyPoints(posedata){
         this.currentRestucturedPosedata=posedata
         this.verifyKeyPoints()
