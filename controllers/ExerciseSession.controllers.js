@@ -2,13 +2,13 @@ const { ReturnDocument } = require("mongodb");
 const {ExerciseSession} = require("../models/exerciseSession.models");
 
 const startSession = async (req, res, next) => {
-    if(!req.body.userID || !req.body.workoutType){
+    if(!req.body.username || !req.body.workoutType){
         return res.status(400).json({
             message:'Invalid Request'
         })
     }
     var exerciseSession= await ExerciseSession.startExcerciseSession({
-        userID: req.body.userID,
+        username: req.body.username,
         workoutType: req.body.workoutType,
         message:'session started'
     })
@@ -48,12 +48,12 @@ const updateSession = async (req, res, next) => {
 }
 
 const getSessions = async (req, res, next) => {
-    if(!req.body.userID){
+    if(!req.body.username){
         return res.status(400).json({
             message:'Invalid Request'
         })
     }
-    var userSessions= await ExerciseSession.getUserSessions(req.body.userID)
+    var userSessions= await ExerciseSession.getUserSessions(req.body.username)
     return res.status(200).json(userSessions)
 }
 

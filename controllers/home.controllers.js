@@ -2,6 +2,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
+const {ExerciseSession} = require("../models/exerciseSession.models");
 
 
 const register = (req, res, next) => {
@@ -33,10 +34,12 @@ const logout = (req, res) => {
     
 }
 
-const dashboard = (req, res) => {
+const dashboard = async (req, res) => {
+    var streak=await ExerciseSession.getStreak(req.username)
     return res.render("dashboard",{user:{
         username:req.username,
-        email:req.email
+        email:req.email,
+        streak:streak
     }
     })
 }
