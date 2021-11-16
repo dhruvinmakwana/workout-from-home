@@ -30,6 +30,13 @@ const endSession = async (req, res, next) => {
         message:'session ended'
     })
 }
+const complete = async (req, res) => {
+    return res.render("complete",{user:{
+        username:req.username,
+        email:req.email,
+    }
+    })
+}
 const updateSession = async (req, res, next) => {
     if(!req.body.sessionID|| !req.body.accuracy){
         return res.status(400).json({
@@ -71,5 +78,6 @@ module.exports = {
     endSession,
     updateSession,
     getSessions,
-    workout
+    workout,
+    complete
   };

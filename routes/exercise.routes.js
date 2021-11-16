@@ -9,6 +9,7 @@ router.post('/updateSession', ExcerciseSessionControllers.updateSession);
 router.post('/getSessions', ExcerciseSessionControllers.getSessions);
 
 router.get('/workout',verifyOrRedirect, ExcerciseSessionControllers.workout);
+router.get('/complete',verifyOrRedirect, ExcerciseSessionControllers.complete);
 
 
 
