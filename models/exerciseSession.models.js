@@ -21,12 +21,15 @@ const ExerciseSessionSchema = new mongoose.Schema({
         type: Number,
     },
     workoutType: {
-        type: Number,
+        type: String,
     },
     endedAt: {
         type: Number,
     },
     accuracy: {
+        type: Number,
+    },
+    reps: {
         type: Number,
     },
 })
@@ -44,12 +47,20 @@ const ExerciseSessionSchema = new mongoose.Schema({
     await exerciseSession.save()
     return exerciseSession._id
 }
+ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSessionObj) {
+    var session = await mongoose.model('ExerciseSession').updateOne({
+        sessionID:ExerciseSessionObj.sessionID
+    }, {
+        accuracy:ExerciseSessionObj.accuracy,
+        reps: ExerciseSessionObj.reps,
+
+    })
+}
 
 ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessionObj) {
     var session = await mongoose.model('ExerciseSession').updateOne({
         sessionID:ExerciseSessionObj.sessionID
     }, {
-        accuracy:ExerciseSessionObj.accuracy,
         endedAt: new Date().getTime(),
 
     })

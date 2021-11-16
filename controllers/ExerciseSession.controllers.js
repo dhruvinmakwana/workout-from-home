@@ -17,14 +17,29 @@ const startSession = async (req, res, next) => {
     })
 }
 const endSession = async (req, res, next) => {
-    if(!req.body.sessionID|| !req.body.accuracy){
+    if(!req.body.sessionID){
         return res.status(400).json({
             message:'Invalid Request'
         })
     }
      await ExerciseSession.endExerciseSession({
         sessionID: req.body.sessionID,
-        accuracy:req.body.accuracy
+        })
+    return res.status(200).json({
+        sessionID:req.body.sessionID,
+        message:'session ended'
+    })
+}
+const updateSession = async (req, res, next) => {
+    if(!req.body.sessionID|| !req.body.accuracy){
+        return res.status(400).json({
+            message:'Invalid Request'
+        })
+    }
+     await ExerciseSession.updateExerciseSession({
+        sessionID: req.body.sessionID,
+        accuracy:req.body.accuracy,
+        reps:req.body.reps
         })
     return res.status(200).json({
         sessionID:req.body.sessionID,
@@ -54,6 +69,7 @@ const workout = async (req, res, next) => {
 module.exports = {
     startSession,
     endSession,
+    updateSession,
     getSessions,
     workout
   };
