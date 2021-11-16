@@ -135,6 +135,11 @@ class PoseMapper{
     }
 
     verifyKeyPoints(){
+        verifyKeyPointsforBiceps()
+        //verifyKeyPointsforExercise2
+    }
+
+    verifyKeyPointsforBiceps(){
         if(!this.workoutIsActive){
             return
         }
@@ -196,6 +201,8 @@ class PoseMapper{
         // }
         this.canvasAnimator.updateKeyPoints(this.currentRestucturedPosedata)
     }
+
+    
     getDistanceBetweenExpectedVSCurrent(){
         this.distanceBetweenExpectedVSCurrentSteps=0
 
