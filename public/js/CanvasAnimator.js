@@ -1,5 +1,5 @@
 class CanvasAnimator{
-    constructor(){
+    constructor(){// initializing the list of objects (body parts)
         this.objects=[]
         this.loop=false
         this.LEFT_SHOULDER="left_shoulder"
@@ -12,71 +12,32 @@ class CanvasAnimator{
         this.keyPoints=[]
         this.canvasObjects=[]
         this.circleRadius=10
-        // this.canvasObjects[this.LEFT_SHOULDER]={
-        //     radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-        // }
-        // this.canvasObjects[this.RIGHT_SHOULDER]={
-        // radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-
-        // }
-        // this.canvasObjects[this.LEFT_HIP]={
-        // radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-
-        // }
-        // this.canvasObjects[this.RIGHT_HIP]={
-        // radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-
-        // }
-        // this.canvasObjects[this.LEFT_WRIST]={
-        //     radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-        // }
-        // this.canvasObjects[this.RIGHT_WRIST]={
-        //     radius: this.circleRadius, fill: 'green', x: 100, y: 100,flipY:true
-        // }
         this.draw()
     }
-    addObject(key,color){
+    addObject(key,color){ //add the objects (circles) which are defined on the basis of the colours, shape and size which helps the user to visualise the points
         this.canvasObjects[key]={
             radius: this.circleRadius, color, x: 100, y: 100,flipY:true
         }
 
     }
     clearObjects(){
-        this.canvasObjects=[]
+        this.canvasObjects=[] // To clean the added objects
     }
-    updateKeyPoints(keyPoints){
+    updateKeyPoints(keyPoints){ // to update the location (x,y coordinates) of the added objects
         Object.keys(keyPoints).forEach((key)=>{
             if(key in this.canvasObjects){
                 this.canvasObjects[key].x=keyPoints[key].x
                 this.canvasObjects[key].y=keyPoints[key].y
             }
         })
-        // keyPoints.keypoints.forEach((elm)=>{
-        //     if(elm.name in this.canvasObjects){
-        //         // this.canvasObjects[elm.name].set("left",elm.x).set('top',elm.y)
-        //         this.canvasObjects[elm.name].set('left', elm.x-(this.circleRadius/2), {
-        //             onChange: this.fabricCanvas.renderAll.bind(this.fabricCanvas)
-        //           }).set('top', elm.y-(this.circleRadius/2), {
-        //             onChange: this.fabricCanvas.renderAll.bind(this.fabricCanvas)
-        //           });
-        //                       }
-        //     // console.log(elm)/
-        // })
-        // this.fabricCanvas.requestRenderAll();
+
 
         this.keyPoints=keyPoints
     }
-    addCanvas(canvas){
+    addCanvas(canvas){ // canvas is selected based on the workout type
         this.canvas=canvas
         this.canvasContext=canvas.getContext('2d')
 
-
-        // this.fabricCanvas = new fabric.Canvas('drawing-canvas');
-        // this.fabricCanvas.setHeight(480);
-        // this.fabricCanvas.setWidth(640);
-        // this.fabricCanvas.renderAll();
-        // this.canvasContext.translate(this.canvas.width, 0);
-        // this.canvasContext.scale(-1, 1);
         for(var key in this.canvasObjects){
             this.fabricCanvas.add( this.canvasObjects[key])
         }
@@ -89,13 +50,8 @@ class CanvasAnimator{
         this.canvasContext.arc(x, y, this.circleRadius, 0, 2 * Math.PI);
         this.canvasContext.fill();
     }
-    startLoop(){
-        this.loop=true
-    }
-    endLoop(){
-        this.loop=false
-    }
-    draw(){
+
+    draw(){ // function which runs on loop to enable the construction and clearing of canvas 
         if(Object.keys(this.canvasObjects).length>0){
             this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
             Object.keys(this.canvasObjects).forEach((key)=>{
