@@ -13,7 +13,7 @@ const ExerciseSessionSchema = new mongoose.Schema({
     id: {
         type: 'ObjectId',
     },
-    userID: {
+    username: {
         type: String,
         required: true
     },
@@ -21,12 +21,15 @@ const ExerciseSessionSchema = new mongoose.Schema({
         type: Number,
     },
     workoutType: {
-        type: Number,
+        type: String,
     },
     endedAt: {
         type: Number,
     },
     accuracy: {
+        type: Number,
+    },
+    reps: {
         type: Number,
     },
 })
@@ -44,12 +47,20 @@ const ExerciseSessionSchema = new mongoose.Schema({
     await exerciseSession.save()
     return exerciseSession._id
 }
+ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSessionObj) {
+    var session = await mongoose.model('ExerciseSession').updateOne({
+        sessionID:ExerciseSessionObj.sessionID
+    }, {
+        accuracy:ExerciseSessionObj.accuracy,
+        reps: ExerciseSessionObj.reps,
+
+    })
+}
 
 ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessionObj) {
     var session = await mongoose.model('ExerciseSession').updateOne({
         sessionID:ExerciseSessionObj.sessionID
     }, {
-        accuracy:ExerciseSessionObj.accuracy,
         endedAt: new Date().getTime(),
 
     })
@@ -60,6 +71,29 @@ ExerciseSessionSchema.statics.getUserSessions = async function (userID) {
         userID:userID
     },"userID startedAt endedAt accuracy workoutType -_id")
     return userSessions
+}
+ExerciseSessionSchema.statics.getStreak = async function (username) {
+    var streak=0
+    var date = new Date();
+    console.log(username)
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var date = new Date();
+    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, -1);
+    console.log(firstDay)
+    console.log(lastDay)
+    for(var start=firstDay.getTime();start<lastDay.getTime();start+=86400000){
+        var userSessions = await mongoose.model('ExerciseSession').find({
+            // username:username,
+            $and: [{ startedAt: { $gte : start} }, { startedAt: { $lte:start+86400000} }]
+        },"userID startedAt endedAt accuracy workoutType -_id")
+        console.log(userSessions)
+        if(userSessions.length){
+            streak++;
+        }
+    
+    }   
+
+    return streak
 }
 
 
