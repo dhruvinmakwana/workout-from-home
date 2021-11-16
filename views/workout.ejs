@@ -61,6 +61,9 @@
   display: flex;
     justify-content: space-around;
 }
+.boxed{
+  border: 5px solid red ;
+}
   </style>
   <div class="ARWorkoutContainer">
     <video id="user-video"></video>
@@ -70,24 +73,24 @@
   </div>
   <div class="debug">
     <div>
-      current step:
-      <p id="current-step"></p>
+      <strong class="boxed">Current Step:</strong>
+      <p style="font-family: 'Courier New', Courier, monospace;" id="current-step"></p>
     </div>
     <div>
-      next step:
-      <p id="next-step"></p>
+      <strong class="boxed">Next Step:</strong>
+      <p style="font-family: 'Courier New', Courier, monospace;" id="next-step"></p>
     </div>
     <div>
-      euclidian distance:
-      <p id="euclidian-distance"></p>
+      <strong class="boxed">Euclidian Distance:</strong>
+      <p style="font-family: 'Courier New', Courier, monospace;" id="euclidian-distance"></p>
     </div>
     <div>
-      Pose status:
-      <p id="pose-status"></p>
+      <strong class="boxed">Pose status:</strong>
+      <p style="font-family: 'Courier New', Courier, monospace;" id="pose-status"></p>
     </div>
-    <div style="border: solid green 2px; border-radius: 5px;">
-      Reps:
-      <p style="color: green; font-family: 'Courier New', Courier, monospace;" id="reps"></p>
+    <div>
+      <strong class="boxed">Reps:</strong>
+      <p style="font-family: 'Courier New', Courier, monospace;" id="reps"></p>
     </div>
   </div>
 

@@ -133,6 +133,11 @@ class PoseMapper{
         this.verifyKeyPoints()
 
     }
+    // This function returns the count of repetitions 
+    get_reps() {
+        return this.reps
+    }
+
 
     verifyKeyPoints(){
         verifyKeyPointsforBiceps()
