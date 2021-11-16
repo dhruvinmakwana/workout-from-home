@@ -98,8 +98,7 @@ class ARWorkoutEngine {
         });
     }
     repsUpdateHandler(data) {
-        console.log(data)
-        alert("Workout complete with accuracy :" + data.accuracy)
+
         $.ajax({
             url: '/exercise/updateSession',
             type: 'POST',
