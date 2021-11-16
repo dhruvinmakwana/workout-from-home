@@ -5,6 +5,7 @@ const {verifyOrRedirect} = require("../middleware/auth");
 
 router.post('/startSession', ExcerciseSessionControllers.startSession);
 router.post('/endSession', ExcerciseSessionControllers.endSession);
+router.post('/updateSession', ExcerciseSessionControllers.updateSession);
 router.post('/getSessions', ExcerciseSessionControllers.getSessions);
 
 router.get('/workout',verifyOrRedirect, ExcerciseSessionControllers.workout);

@@ -33,6 +33,7 @@ class ARWorkoutEngine {
         window.LEFT_HIP="left_hip"
         window.RIGHT_HIP="right_hip"
         this.poseMapper=new PoseMapper(this.drawingCanvas)
+        this.poseMapper.onWorkoutEnd(this.workoutEndHandler)
 
     }
     async initializePoseNet(){
@@ -47,6 +48,7 @@ class ARWorkoutEngine {
                 this.drawUserStream();
                 if(this.POSENET_LOADED){
                     this.performPredictions()
+                    this.poseMapper.startWorkout()
                 }
             },
             width: 1280,
@@ -71,13 +73,16 @@ class ARWorkoutEngine {
                 score:element.score
             }
         }
-        this.restructuredPoseData[window.LEFT_HIP].x*=1.05
-        this.restructuredPoseData[window.RIGHT_HIP].x*=0.95
+        this.restructuredPoseData[window.LEFT_HIP].x*=1.10
+        this.restructuredPoseData[window.RIGHT_HIP].x*=0.90
         // console.log(this.restructuredPoseData)
         this.poseMapper.updateKeyPoints(this.restructuredPoseData)
 
     }
-
+    workoutEndHandler(data){
+        console.log(data)
+        alert("Workout complete with accuracy :"+data.accuracy)
+    }
 
     drawUserStream(){
         this.userCanvasContext.drawImage(this.userVideo,0,0,this.userVideo.videoWidth, this.userVideo.videoHeight)

@@ -9,11 +9,12 @@ class PoseMapper{
         window.LEFT_ELBOW="left_elbow"
         window.RIGHT_ELBOW="right_elbow"
         this.currentRestucturedPosedata=[]
+        this.workoutTime=6
         this.stepsLeft=[
             {
                 pointOfReference:window.LEFT_HIP,
                 movingPoint:window.LEFT_WRIST,
-                allowedError:50
+                allowedError:50,
             },
             {
                 pointOfReference:window.LEFT_ELBOW,
@@ -52,6 +53,12 @@ class PoseMapper{
         this.canvasAnimator.addCanvas(drawingCanvas)
         this.initialized=false
         this.reps=0
+        this.totalReps=5
+        this.workoutAccuracy=100
+        this.workoutError=0
+        this.startedAt=0
+        this.endedAt=0
+        this.workoutIsActive=false
         //call from somewhere else
     }
 
@@ -68,6 +75,9 @@ class PoseMapper{
         if(this.nextStepIndex==0){
             this.nextDirection=1
             this.reps+=1
+            if(this.totalReps===this.reps){
+                this.endWorkout()
+            }
         }
         if(this.currentStepIndex==this.stepsLeft.length-1){
             this.currentDirection=-1
@@ -81,13 +91,42 @@ class PoseMapper{
     }
     startWorkout(workoutType){
         // Fetch steps data
+
+        if(!this.initialized){
+            this.initialized=true
+        }else{
+            return
+        }
         this.currentWorkout='biceps'
         this.currentStepIndex=0
+        this.workoutIsActive=true
         this.canvasAnimator.addObject(this.stepsLeft[this.currentStepIndex].movingPoint,"red")
         this.canvasAnimator.addObject(this.stepsLeft[this.nextStepIndex].pointOfReference,"green")
 
         this.canvasAnimator.addObject(this.stepsRight[this.currentStepIndex].movingPoint,"red")
         this.canvasAnimator.addObject(this.stepsRight[this.nextStepIndex].pointOfReference,"green")
+        this.startedAt=new Date().getTime() / 1000;
+    }
+    endWorkout(workoutType){
+        // Fetch steps data
+        this.workoutIsActive=false
+        this.currentWorkout='biceps'
+        this.currentStepIndex=0
+
+        this.endedAt=new Date().getTime() / 1000;
+        this.accuracy=this.workoutTime/(this.endedAt-this.startedAt)
+        if(this.accuracy>=1){
+            this.accuracy=100
+        }else{
+            this.accuracy*=100
+            this.accuracy=Math.ceil(this.accuracy)
+        }
+        this.canvasAnimator.clearObjects();
+        this.workoutEndCallback({'accuracy':this.accuracy})
+        
+    }
+    onWorkoutEnd(fn){
+        this.workoutEndCallback=fn
     }
     updateKeyPoints(posedata){
         this.currentRestucturedPosedata=posedata
@@ -96,8 +135,11 @@ class PoseMapper{
     }
 
     verifyKeyPoints(){
+        if(!this.workoutIsActive){
+            return
+        }
         this.bodyPositionFlag=true
-//left movement
+        //left movement
         this.stepsLeft.forEach((elm)=>{
             if(this.bodyPositionFlag){
                 if(
@@ -125,6 +167,7 @@ class PoseMapper{
             this.logSuccess('Body visible')
             this.getDistanceBetweenExpectedVSCurrent()
             if(this.distanceBetweenExpectedVSCurrentSteps<=50){
+                this.workoutError+=this.distanceBetweenExpectedVSCurrentSteps;
                 this.goToNextStep()
                 this.canvasAnimator.clearObjects();
                 this.canvasAnimator.addObject(this.stepsLeft[this.currentStepIndex].movingPoint,"red")
@@ -134,6 +177,7 @@ class PoseMapper{
                 this.canvasAnimator.addObject(this.stepsRight[this.nextStepIndex].pointOfReference,"green")
             }
             this.debugToElement('pose-status',"visible")
+            this.debugToElement('pose-error',this.workoutError)
         }else{
             this.logError("Not visible properly")
             this.debugToElement('pose-status',"not visible")
@@ -146,10 +190,10 @@ class PoseMapper{
         this.debugToElement('next-step',this.nextStepIndex)
         this.debugToElement('euclidian-distance',this.distanceBetweenExpectedVSCurrentSteps)
         this.debugToElement('reps',this.reps)
-        if(!this.initialized){
-            this.startWorkout()
-            this.initialized=true
-        }
+        // if(!this.initialized){
+        //     this.startWorkout()
+        //     this.initialized=true
+        // }
         this.canvasAnimator.updateKeyPoints(this.currentRestucturedPosedata)
     }
     getDistanceBetweenExpectedVSCurrent(){
