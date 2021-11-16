@@ -48,17 +48,19 @@ const ExerciseSessionSchema = new mongoose.Schema({
     return exerciseSession._id
 }
 ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSessionObj) {
+    console.log(ExerciseSessionObj)
     var session = await mongoose.model('ExerciseSession').updateOne({
-        sessionID:ExerciseSessionObj.sessionID
+        _id:ExerciseSessionObj.sessionID
     }, {
-        reps: ExerciseSessionObj.reps,
+        $set:{reps: parseInt(ExerciseSessionObj.reps)},
 
     })
+    console.log(session)
 }
 
 ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessionObj) {
     var session = await mongoose.model('ExerciseSession').updateOne({
-        sessionID:ExerciseSessionObj.sessionID
+        _id:ExerciseSessionObj.sessionID
     }, {
         endedAt: new Date().getTime(),
         accuracy:ExerciseSessionObj.accuracy,

@@ -24,6 +24,7 @@ const endSession = async (req, res, next) => {
     }
      await ExerciseSession.endExerciseSession({
         sessionID: req.body.sessionID,
+        accuracy:req.body.accuracy
         })
     return res.status(200).json({
         sessionID:req.body.sessionID,
@@ -38,19 +39,18 @@ const complete = async (req, res) => {
     })
 }
 const updateSession = async (req, res, next) => {
-    if(!req.body.sessionID|| !req.body.accuracy){
+    if(!req.body.sessionID|| !req.body.reps){
         return res.status(400).json({
             message:'Invalid Request'
         })
     }
      await ExerciseSession.updateExerciseSession({
         sessionID: req.body.sessionID,
-        accuracy:req.body.accuracy,
         reps:req.body.reps
         })
     return res.status(200).json({
         sessionID:req.body.sessionID,
-        message:'session ended'
+        message:'session updated'
     })
 }
 

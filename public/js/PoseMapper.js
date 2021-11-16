@@ -9,7 +9,7 @@ class PoseMapper{
         window.LEFT_ELBOW="left_elbow"
         window.RIGHT_ELBOW="right_elbow"
         this.currentRestucturedPosedata=[]
-        this.workoutTime=6
+        this.workoutTime=10
         this.stepsLeft=[
             {
                 pointOfReference:window.LEFT_HIP,
@@ -75,7 +75,7 @@ class PoseMapper{
         if(this.nextStepIndex==0){
             this.nextDirection=1
             this.reps+=1
-            this.repUpdateCallback(this.reps)
+            this.repUpdateCallback({'reps':this.reps})
             if(this.totalReps===this.reps){
                 this.endWorkout()
             }
