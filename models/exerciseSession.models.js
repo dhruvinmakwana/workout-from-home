@@ -66,11 +66,51 @@ ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessi
     })
 }
 
-ExerciseSessionSchema.statics.getUserSessions = async function (userID) {
+ExerciseSessionSchema.statics.getUserSessions = async function (username) {
     var userSessions = await mongoose.model('ExerciseSession').find({
         username:username
     },"username startedAt endedAt accuracy workoutType -_id")
     return userSessions
+}
+ExerciseSessionSchema.statics.getMostRecentWorkout = async function (username) {
+    var userSessions = await mongoose.model('ExerciseSession').findOne({
+        username:username
+    },"username startedAt endedAt accuracy workoutType -_id").sort({startedAt:-1})
+    if(userSessions){
+        return userSessions.workoutType    
+    }else{
+        return ""
+    }
+    
+}
+ExerciseSessionSchema.statics.getAverageAccuracy = async function (username) {
+    var workouts=0
+    var totalAccuracy=0
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var date = new Date();
+    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, -1);
+    console.log(firstDay)
+    console.log(lastDay)
+    for(var start=firstDay.getTime();start<lastDay.getTime();start+=86400000){
+        var userSessions = await mongoose.model('ExerciseSession').find({
+            username:username,
+            $and: [{ startedAt: { $gte : start} }, { startedAt: { $lte:start+86400000} }]
+        },"userID startedAt endedAt accuracy workoutType -_id")
+        userSessions.forEach(element => {
+            console.log(element)
+            if(element.accuracy){
+                totalAccuracy+=element.accuracy
+                workouts++;
+            }
+        });
+    
+    }   
+    if(workouts>0){
+        return parseInt(totalAccuracy/workouts)
+    }else{
+        return 0
+    }
 }
 ExerciseSessionSchema.statics.getStreak = async function (username) {
     var streak=0
@@ -83,7 +123,7 @@ ExerciseSessionSchema.statics.getStreak = async function (username) {
     console.log(lastDay)
     for(var start=firstDay.getTime();start<lastDay.getTime();start+=86400000){
         var userSessions = await mongoose.model('ExerciseSession').find({
-            // username:username,
+            username:username,
             $and: [{ startedAt: { $gte : start} }, { startedAt: { $lte:start+86400000} }]
         },"userID startedAt endedAt accuracy workoutType -_id")
         console.log(userSessions)

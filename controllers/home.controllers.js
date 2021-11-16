@@ -36,10 +36,15 @@ const logout = (req, res) => {
 
 const dashboard = async (req, res) => {
     var streak=await ExerciseSession.getStreak(req.username)
+    var mostRecentWorkout=await ExerciseSession.getMostRecentWorkout(req.username)
+    var avgAccuracy=await ExerciseSession.getAverageAccuracy(req.username)
+    
     return res.render("dashboard",{user:{
         username:req.username,
         email:req.email,
-        streak:streak
+        streak:streak,
+        mostRecentWorkout:mostRecentWorkout,
+        accuracy:avgAccuracy
     }
     })
 }
