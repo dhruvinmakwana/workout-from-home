@@ -119,6 +119,7 @@ class PoseMapper{
             this.accuracy=100
         }else{
             this.accuracy*=100
+            this.accuracy=Math.ceil(this.accuracy)
         }
         this.canvasAnimator.clearObjects();
         this.workoutEndCallback({'accuracy':this.accuracy})
