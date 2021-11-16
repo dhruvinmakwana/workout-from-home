@@ -93,7 +93,7 @@ class ARWorkoutEngine {
             success: function (data) {
                 // window.sessionID = data.sessionID
                 console.log(data);
-                window.location.href='/exercise/workout/complete'
+                window.location.href='/exercise/complete'
             }
 
         });
