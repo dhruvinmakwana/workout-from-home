@@ -75,6 +75,7 @@ class PoseMapper{
         if(this.nextStepIndex==0){
             this.nextDirection=1
             this.reps+=1
+            this.repUpdateCallback(this.reps)
             if(this.totalReps===this.reps){
                 this.endWorkout()
             }
@@ -128,6 +129,9 @@ class PoseMapper{
     onWorkoutEnd(fn){
         this.workoutEndCallback=fn
     }
+    onRepsUpdate(fn){
+        this.repUpdateCallback=fn
+    }
     updateKeyPoints(posedata){
         this.currentRestucturedPosedata=posedata
         this.verifyKeyPoints()
@@ -140,7 +144,7 @@ class PoseMapper{
 
 
     verifyKeyPoints(){
-        verifyKeyPointsforBiceps()
+        this.verifyKeyPointsforBiceps()
         //verifyKeyPointsforExercise2
     }
 

@@ -40,7 +40,7 @@ const ExerciseSessionSchema = new mongoose.Schema({
  */
  ExerciseSessionSchema.statics.startExcerciseSession = async function (ExerciseSessionObj) {
     var exerciseSession = await mongoose.model('ExerciseSession').create({
-        userID: ExerciseSessionObj.userID,
+        username: ExerciseSessionObj.username,
         workoutType: ExerciseSessionObj.workoutType,
         startedAt: new Date().getTime()
     })
@@ -51,7 +51,6 @@ ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSe
     var session = await mongoose.model('ExerciseSession').updateOne({
         sessionID:ExerciseSessionObj.sessionID
     }, {
-        accuracy:ExerciseSessionObj.accuracy,
         reps: ExerciseSessionObj.reps,
 
     })
@@ -62,14 +61,15 @@ ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessi
         sessionID:ExerciseSessionObj.sessionID
     }, {
         endedAt: new Date().getTime(),
+        accuracy:ExerciseSessionObj.accuracy,
 
     })
 }
 
 ExerciseSessionSchema.statics.getUserSessions = async function (userID) {
     var userSessions = await mongoose.model('ExerciseSession').find({
-        userID:userID
-    },"userID startedAt endedAt accuracy workoutType -_id")
+        username:username
+    },"username startedAt endedAt accuracy workoutType -_id")
     return userSessions
 }
 ExerciseSessionSchema.statics.getStreak = async function (username) {

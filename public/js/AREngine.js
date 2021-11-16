@@ -4,49 +4,50 @@ class ARWorkoutEngine {
     constructor({
         userVideo = "",
         userStream = "",
-        userCanvas="",
-        drawingCanvas=""
+        userCanvas = "",
+        drawingCanvas = ""
     } = {}) {
-        this.userVideo=userVideo
-        this.userCanvas=userCanvas
-        this.userStream=userStream
-        this.userCanvas.height= this.userVideo.videoHeight
-        this.userCanvas.width= this.userVideo.videoWidth
-        this.userCanvasContext=this.userCanvas.getContext("2d");
+        this.userVideo = userVideo
+        this.userCanvas = userCanvas
+        this.userStream = userStream
+        this.userCanvas.height = this.userVideo.videoHeight
+        this.userCanvas.width = this.userVideo.videoWidth
+        this.userCanvasContext = this.userCanvas.getContext("2d");
         this.userCanvasContext.translate(this.userCanvas.width, 0);
         this.userCanvasContext.scale(-1, 1);
-        
-        this.drawingCanvas=drawingCanvas
-        this.drawingCanvas.height= this.userVideo.videoHeight
-        this.drawingCanvas.width= this.userVideo.videoWidth
+
+        this.drawingCanvas = drawingCanvas
+        this.drawingCanvas.height = this.userVideo.videoHeight
+        this.drawingCanvas.width = this.userVideo.videoWidth
 
         this.initializePoseNet()
         this.initializeCamera()
-        this.POSENET_LOADED=false
-        this.sketcher=new Sketcher(this.userCanvas)
+        this.POSENET_LOADED = false
+        this.sketcher = new Sketcher(this.userCanvas)
         ARWorkoutEngine.setInstance(this)
-        this.NOSE='nose'
-        window.LEFT_SHOULDER="left_shoulder"
-        window.RIGHT_SHOULDER="right_shoulder"
-        window.LEFT_WRIST="left_wrist"
-        window.RIGHT_WRIST="right_wrist"
-        window.LEFT_HIP="left_hip"
-        window.RIGHT_HIP="right_hip"
-        this.poseMapper=new PoseMapper(this.drawingCanvas)
+        this.NOSE = 'nose'
+        window.LEFT_SHOULDER = "left_shoulder"
+        window.RIGHT_SHOULDER = "right_shoulder"
+        window.LEFT_WRIST = "left_wrist"
+        window.RIGHT_WRIST = "right_wrist"
+        window.LEFT_HIP = "left_hip"
+        window.RIGHT_HIP = "right_hip"
+        this.poseMapper = new PoseMapper(this.drawingCanvas)
         this.poseMapper.onWorkoutEnd(this.workoutEndHandler)
+        this.poseMapper.onRepsUpdate(this.repsUpdateHandler)
 
     }
-    async initializePoseNet(){
-        const detectorConfig = {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING};
+    async initializePoseNet() {
+        const detectorConfig = { modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING };
         this.detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig);
         $('body').trigger('model-loaded')
-        this.POSENET_LOADED=true
+        this.POSENET_LOADED = true
     }
-    async  initializeCamera() {
+    async initializeCamera() {
         const camera = new Camera(this.userVideo, {
             onFrame: async () => {
                 this.drawUserStream();
-                if(this.POSENET_LOADED){
+                if (this.POSENET_LOADED) {
                     this.performPredictions()
                     this.poseMapper.startWorkout()
                 }
@@ -57,52 +58,82 @@ class ARWorkoutEngine {
         camera.start(this.userStream);
 
     }
-    async performPredictions(){
+    async performPredictions() {
         const poses = await this.detector.estimatePoses(this.userVideo);
         // console.log(poses)
         // this.sketcher.drawPredictions(poses)
-        this.restructuredPoseData={}
-        if(poses.length==0){
+        this.restructuredPoseData = {}
+        if (poses.length == 0) {
             return
         }
         for (let index = 0; index < poses[0].keypoints.length; index++) {
             const element = poses[0].keypoints[index];
-            this.restructuredPoseData[element.name]={
-                x:element.x,
-                y:element.y,
-                score:element.score
+            this.restructuredPoseData[element.name] = {
+                x: element.x,
+                y: element.y,
+                score: element.score
             }
         }
-        this.restructuredPoseData[window.LEFT_HIP].x*=1.10
-        this.restructuredPoseData[window.RIGHT_HIP].x*=0.90
+        this.restructuredPoseData[window.LEFT_HIP].x *= 1.10
+        this.restructuredPoseData[window.RIGHT_HIP].x *= 0.90
         // console.log(this.restructuredPoseData)
         this.poseMapper.updateKeyPoints(this.restructuredPoseData)
 
     }
-    workoutEndHandler(data){
+    workoutEndHandler(data) {
         console.log(data)
-        alert("Workout complete with accuracy :"+data.accuracy)
+        alert("Workout complete with accuracy :" + data.accuracy)
+        $.ajax({
+            url: '/exercise/endSession',
+            type: 'POST',
+            data: {
+                sessionID: window.sessionID,
+                accuracy: data.accuracy
+            },
+            success: function (data) {
+                // window.sessionID = data.sessionID
+                console.log(data);
+            }
+
+        });
+    }
+    repsUpdateHandler(data) {
+        console.log(data)
+        alert("Workout complete with accuracy :" + data.accuracy)
+        $.ajax({
+            url: '/exercise/updateSession',
+            type: 'POST',
+            data: {
+                sessionID: window.sessionID,
+                reps: data.reps
+            },
+            success: function (data) {
+                // window.sessionID = data.sessionID
+                console.log(data);
+            }
+
+        });
     }
 
-    drawUserStream(){
-        this.userCanvasContext.drawImage(this.userVideo,0,0,this.userVideo.videoWidth, this.userVideo.videoHeight)
+    drawUserStream() {
+        this.userCanvasContext.drawImage(this.userVideo, 0, 0, this.userVideo.videoWidth, this.userVideo.videoHeight)
     }
-    updateCanvas(cv){
-        this.userCanvas=cv
+    updateCanvas(cv) {
+        this.userCanvas = cv
     }
-    updateVideo(video){
-        this.userVideo=video
+    updateVideo(video) {
+        this.userVideo = video
     }
-    updateStream(stream){
-        this.userStream=stream
+    updateStream(stream) {
+        this.userStream = stream
     }
-    static setInstance(instance){
-            this.instance=instance
+    static setInstance(instance) {
+        this.instance = instance
     }
-    static getInstance(){
-        if(!this.instance){
+    static getInstance() {
+        if (!this.instance) {
             throw new Error('Cannot get ARWorkoutEngine instance without building it.')
-        }else{
+        } else {
             return this.instance
 
         }

@@ -121,6 +121,19 @@
     $(document).ready(function () {
       $('body').on('model-loaded', function () {
         $('.info-message').hide()
+                $.ajax({
+          url: '/exercise/startSession',
+          type: 'POST',
+          data: {
+            username: '<%- user.username %>',
+            workoutType:'curls'
+          },
+          success: function (data) {
+            window.sessionID = data.sessionID
+            console.log(data);
+          }
+
+        });
         
       })
     })
