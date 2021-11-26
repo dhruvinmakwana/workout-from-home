@@ -9,7 +9,7 @@ class PoseMapper{
         window.LEFT_ELBOW="left_elbow"
         window.RIGHT_ELBOW="right_elbow"
         this.currentRestucturedPosedata=[]
-        this.workoutTime=10
+        this.workoutTime=20
         this.stepsLeft=[
             {
                 pointOfReference:window.LEFT_HIP,
@@ -98,7 +98,20 @@ class PoseMapper{
         }else{
             return
         }
-        this.currentWorkout='biceps'
+        switch (workoutType) {
+            case "biceps":
+                this.currentWorkout=workoutType
+                this.loadBicepPoints()
+                break;
+            case "shoulders":
+                this.currentWorkout=workoutType
+                this.loadShoulderPoints()
+                break;
+            
+            default:
+                break;
+        }
+        // this.currentWorkout='biceps'
         this.currentStepIndex=0
         this.workoutIsActive=true
         this.canvasAnimator.addObject(this.stepsLeft[this.currentStepIndex].movingPoint,"red")
@@ -106,7 +119,72 @@ class PoseMapper{
 
         this.canvasAnimator.addObject(this.stepsRight[this.currentStepIndex].movingPoint,"red")
         this.canvasAnimator.addObject(this.stepsRight[this.nextStepIndex].pointOfReference,"green")
-        this.startedAt=new Date().getTime() / 1000;
+        // this.startedAt=new Date().getTime() / 1000;
+    }
+    loadBicepPoints(){
+        this.stepsLeft=[
+            {
+                pointOfReference:window.LEFT_HIP,
+                movingPoint:window.LEFT_WRIST,
+                allowedError:50,
+            },
+            {
+                pointOfReference:window.LEFT_ELBOW,
+                movingPoint:window.LEFT_WRIST,
+                allowedError:50
+            },
+            {
+                pointOfReference:window.LEFT_SHOULDER,
+                movingPoint:window.LEFT_WRIST,
+                allowedError:50
+            }
+        ]
+        this.stepsRight=[    
+            //right movement
+            {
+                pointOfReference:window.RIGHT_HIP,
+                movingPoint:window.RIGHT_WRIST,
+                allowedError:50
+            },
+            {
+                pointOfReference:window.RIGHT_ELBOW,
+                movingPoint:window.RIGHT_WRIST,
+                allowedError:50
+            },
+            {
+                pointOfReference:window.RIGHT_SHOULDER,
+                movingPoint:window.RIGHT_WRIST,
+                allowedError:50
+            }
+        ]
+    }
+
+    loadShoulderPoints(){
+        this.stepsLeft=[
+            {
+                pointOfReference:window.LEFT_HIP,
+                movingPoint:window.LEFT_WRIST,
+                allowedError:50,
+            },
+            {
+                pointOfReference:window.LEFT_SHOULDER,
+                movingPoint:window.LEFT_WRIST,
+                allowedError:50
+            }
+        ]
+        this.stepsRight=[    
+            //right movement
+            {
+                pointOfReference:window.RIGHT_HIP,
+                movingPoint:window.RIGHT_WRIST,
+                allowedError:50
+            },
+            {
+                pointOfReference:window.RIGHT_SHOULDER,
+                movingPoint:window.RIGHT_WRIST,
+                allowedError:50
+            }
+        ]
     }
     endWorkout(workoutType){
         // Fetch steps data
@@ -183,6 +261,9 @@ class PoseMapper{
             if(this.distanceBetweenExpectedVSCurrentSteps<=50){
                 this.workoutError+=this.distanceBetweenExpectedVSCurrentSteps;
                 this.goToNextStep()
+                if(this.startedAt==0){
+                    this.startedAt=new Date().getTime() / 1000;
+                }
                 this.canvasAnimator.clearObjects();
                 this.canvasAnimator.addObject(this.stepsLeft[this.currentStepIndex].movingPoint,"red")
                 this.canvasAnimator.addObject(this.stepsLeft[this.nextStepIndex].pointOfReference,"green")
@@ -210,7 +291,71 @@ class PoseMapper{
         // }
         this.canvasAnimator.updateKeyPoints(this.currentRestucturedPosedata)
     }
+    verifyKeyPointsforShoulder(){
+        if(!this.workoutIsActive){
+            return
+        }
+        this.bodyPositionFlag=true
+        //left movement
+        this.stepsLeft.forEach((elm)=>{
+            if(this.bodyPositionFlag){
+                if(
+                this.currentRestucturedPosedata[elm.pointOfReference].score<0.4
+                || this.currentRestucturedPosedata[elm.movingPoint].score<0.4
+                ){
+                    this.bodyPositionFlag=false
+                    return
+                }
+            }
+        })
+        //Right Movement
+        this.stepsRight.forEach((elm)=>{
+            if(this.bodyPositionFlag){
+                if(
+                this.currentRestucturedPosedata[elm.pointOfReference].score<0.4
+                || this.currentRestucturedPosedata[elm.movingPoint].score<0.4
+                ){
+                    this.bodyPositionFlag=false
+                    return
+                }
+            }
+        })
+        if(this.bodyPositionFlag){
+            this.logSuccess('Body visible')
+            this.getDistanceBetweenExpectedVSCurrent()
+            if(this.distanceBetweenExpectedVSCurrentSteps<=50){
+                this.workoutError+=this.distanceBetweenExpectedVSCurrentSteps;
+                this.goToNextStep()
+                if(this.startedAt==0){
+                    this.startedAt=new Date().getTime() / 1000;
+                }
+                this.canvasAnimator.clearObjects();
+                this.canvasAnimator.addObject(this.stepsLeft[this.currentStepIndex].movingPoint,"red")
+                this.canvasAnimator.addObject(this.stepsLeft[this.nextStepIndex].pointOfReference,"green")
 
+                this.canvasAnimator.addObject(this.stepsRight[this.currentStepIndex].movingPoint,"red")
+                this.canvasAnimator.addObject(this.stepsRight[this.nextStepIndex].pointOfReference,"green")
+            }
+            this.debugToElement('pose-status',"visible")
+            this.debugToElement('pose-error',this.workoutError)
+        }else{
+            this.logError("Not visible properly")
+            this.debugToElement('pose-status',"not visible")
+            // console.log(this.currentRestucturedPosedata)
+        }
+         
+        this.logInfo("current step:"+this.currentStepIndex)
+        this.logInfo("next step:"+this.nextStepIndex)
+        this.debugToElement('current-step',this.currentStepIndex)
+        this.debugToElement('next-step',this.nextStepIndex)
+        this.debugToElement('euclidian-distance',this.distanceBetweenExpectedVSCurrentSteps)
+        this.debugToElement('reps',this.reps)
+        // if(!this.initialized){
+        //     this.startWorkout()
+        //     this.initialized=true
+        // }
+        this.canvasAnimator.updateKeyPoints(this.currentRestucturedPosedata)
+    }
     
     getDistanceBetweenExpectedVSCurrent(){
         this.distanceBetweenExpectedVSCurrentSteps=0

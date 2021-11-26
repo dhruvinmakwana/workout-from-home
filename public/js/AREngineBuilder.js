@@ -20,6 +20,10 @@ class ARWorkoutEngineBuilder  {
         this.drawingCanvas=drawingCanvas
         return this
     }
+    setWorkoutType(workoutType){
+        this.workoutType=workoutType
+        return this
+    }
     
     build(){
         return new ARWorkoutEngine(this)

@@ -5,7 +5,8 @@ class ARWorkoutEngine {
         userVideo = "",
         userStream = "",
         userCanvas = "",
-        drawingCanvas = ""
+        drawingCanvas = "",
+        workoutType = ""
     } = {}) {
         this.userVideo = userVideo
         this.userCanvas = userCanvas
@@ -35,6 +36,7 @@ class ARWorkoutEngine {
         this.poseMapper = new PoseMapper(this.drawingCanvas)
         this.poseMapper.onWorkoutEnd(this.workoutEndHandler)
         this.poseMapper.onRepsUpdate(this.repsUpdateHandler)
+        this.workoutType=workoutType
 
     }
     async initializePoseNet() {
@@ -49,7 +51,7 @@ class ARWorkoutEngine {
                 this.drawUserStream();
                 if (this.POSENET_LOADED) {
                     this.performPredictions()
-                    this.poseMapper.startWorkout()
+                    this.poseMapper.startWorkout(this.workoutType)
                 }
             },
             width: 1280,

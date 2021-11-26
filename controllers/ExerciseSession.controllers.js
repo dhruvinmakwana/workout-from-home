@@ -66,9 +66,24 @@ const getSessions = async (req, res, next) => {
 
 const workout = async (req, res, next) => {
     console.log(req.username)
+    var workoutImage=""
+    switch (req.params.workoutType) {
+        case "shoulders":
+            workoutImage="images/uprightrow.gif"
+            break;
+        case "biceps":
+            workoutImage="images/curls.gif"
+            break;
+    
+        default:
+            workoutImage=""
+            break;
+    }
     return res.render('workout',{user:{
         username:req.username,
-        email:req.email
+        email:req.email,
+        workoutImage:workoutImage,
+        workoutType:req.params.workoutType
     }
     })
 }

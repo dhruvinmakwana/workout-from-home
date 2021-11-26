@@ -65,12 +65,20 @@
   border: 5px solid red ;
 }
   </style>
-  <div class="ARWorkoutContainer">
-    <video id="user-video"></video>
-    <canvas id="user-canvas"></canvas>
-    <canvas id="drawing-canvas"></canvas>
-    <div class="info-message"> Initializing.....</div>
+  <div style="display: flex;
+  justify-content: center;
+  align-items: center;">
+    <div style="margin: auto;">
+      <img src="/<%= user.workoutImage %>">
+    </div>
+    <div class="ARWorkoutContainer">
+      <video id="user-video"></video>
+      <canvas id="user-canvas"></canvas>
+      <canvas id="drawing-canvas"></canvas>
+      <div class="info-message"> Initializing.....</div>
+    </div>
   </div>
+
   <div class="debug">
     <div>
       <strong class="boxed">Current Step:</strong>
@@ -115,6 +123,7 @@
             .addUserStream(stream)
             .addUserCanvas($('#user-canvas').get(0))
             .addDrawingCanvas($('#drawing-canvas').get(0))
+            .setWorkoutType("<%=user.workoutType %>")
             .build()
         };
       })
@@ -126,7 +135,7 @@
           type: 'POST',
           data: {
             username: '<%- user.username %>',
-            workoutType:'curls'
+            workoutType:'<%=user.workoutType %>'
           },
           success: function (data) {
             window.sessionID = data.sessionID
