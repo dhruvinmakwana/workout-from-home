@@ -91,10 +91,10 @@ ExerciseSessionSchema.statics.getAverageAccuracy = async function (username) {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var date = new Date();
-    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, -1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
     console.log(firstDay)
     console.log(lastDay)
-    for(var start=firstDay.getTime();start<lastDay.getTime();start+=86400000){
+    for(var start=firstDay.getTime();start<=lastDay.getTime();start+=86400000){
         var userSessions = await mongoose.model('ExerciseSession').find({
             username:username,
             $and: [{ startedAt: { $gte : start} }, { startedAt: { $lte:start+86400000} }]
@@ -120,10 +120,10 @@ ExerciseSessionSchema.statics.getStreak = async function (username) {
     console.log(username)
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var date = new Date();
-    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, -1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
     console.log(firstDay)
     console.log(lastDay)
-    for(var start=firstDay.getTime();start<lastDay.getTime();start+=86400000){
+    for(var start=firstDay.getTime();start<=lastDay.getTime();start+=86400000){
         var userSessions = await mongoose.model('ExerciseSession').find({
             username:username,
             $and: [{ startedAt: { $gte : start} }, { startedAt: { $lte:start+86400000} }]
