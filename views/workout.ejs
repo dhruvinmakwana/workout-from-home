@@ -56,13 +56,21 @@
 .debug p{
   font-weight: bold;
   font-size: 30pt;
+  margin-top: 2%;
 }
 .debug{
   display: flex;
     justify-content: space-around;
+    margin-top: 2%;
+
 }
 .boxed{
   border: 5px solid red ;
+}
+.metric-content {
+  font-weight: bold;
+  font-size: 20pt;
+  text-align: center;
 }
   </style>
   <div style="display: flex;
@@ -82,11 +90,11 @@
   <div class="debug">
     <div>
       <strong class="boxed">Current Step:</strong>
-      <p style="font-family: 'Courier New', Courier, monospace;" id="current-step"></p>
+      <div class="metric-content" style="font-family: 'Courier New', Courier, monospace;" id="current-step"></div>
     </div>
     <div>
       <strong class="boxed">Next Step:</strong>
-      <p style="font-family: 'Courier New', Courier, monospace;" id="next-step"></p>
+      <div class="metric-content" style="font-family: 'Courier New', Courier, monospace;" id="next-step"></div>
     </div>
     <!-- <div>
       <strong class="boxed">Euclidian Distance:</strong>
@@ -94,11 +102,11 @@
     </div> -->
     <div>
       <strong class="boxed">Your visibility:</strong>
-      <p style="font-family: 'Courier New', Courier, monospace;" id="pose-status"></p>
+      <div class="metric-content" style="font-family: 'Courier New', Courier, monospace;" id="pose-status"></div>
     </div>
     <div>
       <strong class="boxed">Reps:</strong>
-      <p style="font-family: 'Courier New', Courier, monospace;" id="reps"></p>
+      <div class="metric-content" style="font-family: 'Courier New', Courier, monospace;" id="reps"></div>
     </div>
   </div>
 
