@@ -8,6 +8,8 @@ class PoseMapper{
         window.RIGHT_HIP="right_hip"
         window.LEFT_ELBOW="left_elbow"
         window.RIGHT_ELBOW="right_elbow"
+        window.LEFT_KNEE="left_knee"
+        window.RIGHT_KNEE="right_knee"
         this.currentRestucturedPosedata=[]
         this.workoutTime=20
         this.stepsLeft=[
@@ -56,6 +58,7 @@ class PoseMapper{
         this.totalReps=5
         this.workoutAccuracy=100
         this.workoutError=0
+        this.MOST_ERRORS=0
         this.startedAt=0
         this.endedAt=0
         this.workoutIsActive=false
@@ -106,6 +109,10 @@ class PoseMapper{
             case "shoulders":
                 this.currentWorkout=workoutType
                 this.loadShoulderPoints()
+                break;
+            case "legs":
+                this.currentWorkout=workoutType
+                this.loadLegsPoints()
                 break;
             
             default:
@@ -186,6 +193,35 @@ class PoseMapper{
             }
         ]
     }
+
+    loadLegsPoints(){
+        this.stepsLeft=[
+            {
+                pointOfReference:window.LEFT_HIP,
+                movingPoint:window.LEFT_HIP,
+                allowedError:50,
+            },
+            {
+                pointOfReference:window.LEFT_KNEE,
+                movingPoint:window.LEFT_HIP,
+                allowedError:50
+            }
+        ]
+        this.stepsRight=[    
+            //right movement
+            {
+                pointOfReference:window.RIGHT_KNEE,
+                movingPoint:window.RIGHT_HIP,
+                allowedError:50
+            },
+            {
+                pointOfReference:window.RIGHT_KNEE,
+                movingPoint:window.RIGHT_HIP,
+                allowedError:50
+            }
+        ]
+    }
+    
     endWorkout(workoutType){
         // Fetch steps data
         this.workoutIsActive=false
@@ -193,7 +229,9 @@ class PoseMapper{
         this.currentStepIndex=0
 
         this.endedAt=new Date().getTime() / 1000;
-        this.accuracy=this.workoutTime/(this.endedAt-this.startedAt)
+        this.timeBasedAccuracy=this.workoutTime/(this.endedAt-this.startedAt)
+        this.postureAccuracy=1-(this.workoutError/this.MOST_ERRORS)
+        this.accuracy=(this.timeBasedAccuracy+this.postureAccuracy)/2
         if(this.accuracy>=1){
             this.accuracy=100
         }else{
@@ -260,6 +298,7 @@ class PoseMapper{
             this.getDistanceBetweenExpectedVSCurrent()
             if(this.distanceBetweenExpectedVSCurrentSteps<=50){
                 this.workoutError+=this.distanceBetweenExpectedVSCurrentSteps;
+                this.MOST_ERRORS+=50
                 this.goToNextStep()
                 if(this.startedAt==0){
                     this.startedAt=new Date().getTime() / 1000;

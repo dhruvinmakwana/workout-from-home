@@ -1,0 +1,8 @@
+{
+    "source": {
+        "include": ["controllers/", "middleware", "models","public/js","routes"],
+        "exclude": ["public/js/fabric.js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    }
+}
