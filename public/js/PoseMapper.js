@@ -1,4 +1,11 @@
+/**
+ * Class that is responsible performing tasks related to analysing user's body movement based on current vs expected position.
+ */
 class PoseMapper{
+    /**
+     * Create instance of the Posemapper based on  which canvas to use for animating objects.
+     * @param {HTMLCanvasElement} drawingCanvas 
+     */
     constructor(drawingCanvas){
         window.LEFT_SHOULDER="left_shoulder"
         window.RIGHT_SHOULDER="right_shoulder"
@@ -71,6 +78,10 @@ class PoseMapper{
     getCurrentStep(){
 
     }
+    
+    /**
+     * Go to the next step of the workout
+     */
     goToNextStep(){
         if(this.nextStepIndex==this.stepsLeft.length-1){
             this.nextDirection=-1
