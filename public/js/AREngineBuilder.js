@@ -45,8 +45,8 @@ class ARWorkoutEngineBuilder  {
     }
 
         /**
-     * Set user video element to be processed.
-     * @param {HTMLVideoElement} userVideo 
+     * Set current workout type.
+     * @param {String} workoutType 
      * @returns {ARWorkoutEngineBuilder}
      */
     setWorkoutType(workoutType){
