@@ -1,4 +1,8 @@
 /**
+ * @file Class that is responsible performing tasks related to analysing user's body movement based on current vs expected position.
+ * @author Mansi Brahmbhatt, Girik Prabhakar, Ripudaman Uppal
+ */
+/**
  * Class that is responsible performing tasks related to analysing user's body movement based on current vs expected position.
  */
 class PoseMapper{

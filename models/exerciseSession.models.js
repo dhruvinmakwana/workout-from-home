@@ -1,13 +1,16 @@
-// excercise session
-//     data:
-//         started at
-//         workout type
-//         ended at
-//         accuracy 
-//     methods:
-//         session_id start_new_session ({workout_type})
-//         end_session (session_id)
+
+/**
+ * @file This file contains the model functions responsible for performing databse operations for the ExcerciseSession
+ * @author Dhruvin Hasmukh Makwana, Darshil Hirenkumar Shah
+ */
+/**
+ * This file contains the model functions responsible for performing databse operations for the ExcerciseSession
+ * @module Model/ExcerciseSession
+ */
 const mongoose = require('mongoose');
+/**
+ * Describes the schema of the ExerciseSession document
+ */
 const ExerciseSessionSchema = new mongoose.Schema({
     // Model attributes are defined here
     id: {
@@ -33,12 +36,15 @@ const ExerciseSessionSchema = new mongoose.Schema({
         type: Number,
     },
 })
+
+
+ ExerciseSessionSchema.statics.startExcerciseSession = async function (ExerciseSessionObj) {
 /**
  * creates a new excercise session for a specified user
- * @param {*} ExerciseSessionObj 
+ * @function startExcerciseSession
+ * @param {object} ExerciseSessionObj 
  * @returns exercise session id
  */
- ExerciseSessionSchema.statics.startExcerciseSession = async function (ExerciseSessionObj) {
     var exerciseSession = await mongoose.model('ExerciseSession').create({
         username: ExerciseSessionObj.username,
         workoutType: ExerciseSessionObj.workoutType,
@@ -47,7 +53,15 @@ const ExerciseSessionSchema = new mongoose.Schema({
     await exerciseSession.save()
     return exerciseSession._id
 }
+
+
 ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSessionObj) {
+    /**
+ * This functions updates the user session data based on the  ExerciseSessionObj passed
+ * @function updateExerciseSession
+ * @param {object} ExerciseSessionObj 
+ * @returns null
+ */
     console.log(ExerciseSessionObj)
     var session = await mongoose.model('ExerciseSession').updateOne({
         _id:ExerciseSessionObj.sessionID
@@ -59,6 +73,12 @@ ExerciseSessionSchema.statics.updateExerciseSession = async function (ExerciseSe
 }
 
 ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessionObj) {
+        /**
+ * This functions ends the user session data based on the  ExerciseSessionObj passed
+ * @function endExerciseSession
+ * @param {object} ExerciseSessionObj 
+ * @returns null
+ */
     var session = await mongoose.model('ExerciseSession').updateOne({
         _id:ExerciseSessionObj.sessionID
     }, {
@@ -69,12 +89,24 @@ ExerciseSessionSchema.statics.endExerciseSession = async function (ExerciseSessi
 }
 
 ExerciseSessionSchema.statics.getUserSessions = async function (username) {
+        /**
+ * This functions gets previous  user session data based on the  username passed
+ * @function getUserSessions
+ * @param {String} username 
+ * @returns {object} userSessions
+ */
     var userSessions = await mongoose.model('ExerciseSession').find({
         username:username
     },"username startedAt endedAt accuracy workoutType -_id")
     return userSessions
 }
 ExerciseSessionSchema.statics.getMostRecentWorkout = async function (username) {
+/**
+ * This functions gets most recent workout performed by the user based on the  username passed
+ * @function getMostRecentWorkout
+ * @param {String} username 
+ * @returns {string} workoutType
+ */
     var userSessions = await mongoose.model('ExerciseSession').findOne({
         username:username
     },"username startedAt endedAt accuracy workoutType -_id").sort({startedAt:-1})
@@ -86,6 +118,12 @@ ExerciseSessionSchema.statics.getMostRecentWorkout = async function (username) {
     
 }
 ExerciseSessionSchema.statics.getAverageAccuracy = async function (username) {
+/**
+ * This functions calculates the average accuracy of the workouts performed by the user based on the  username passed
+ * @function getAverageAccuracy
+ * @param {String} username 
+ * @returns {int} averageAccuracy
+ */
     var workouts=0
     var totalAccuracy=0
     var date = new Date();
@@ -115,6 +153,12 @@ ExerciseSessionSchema.statics.getAverageAccuracy = async function (username) {
     }
 }
 ExerciseSessionSchema.statics.getStreak = async function (username) {
+    /**
+ * This functions calculates the number of days user has performed workouts in a month based on the  username passed
+ * @function getStreak
+ * @param {String} username 
+ * @returns {int} streak
+ */
     var streak=0
     var date = new Date();
     console.log(username)

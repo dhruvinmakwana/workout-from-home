@@ -1,3 +1,7 @@
+/**
+ * @file Class that is used to build the instance of ARWorkoutEngine in a step-wise manner following {@link https://en.wikipedia.org/wiki/Builder_pattern|the Gangs of Four design pattern}.
+ * @author Dhruvin Hasmukh Makwana
+ */
 /** Class that is used to build the instance of ARWorkoutEngine in a step-wise manner following {@link https://en.wikipedia.org/wiki/Builder_pattern|the Gangs of Four design pattern}. */
 class ARWorkoutEngineBuilder  {
 

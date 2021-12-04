@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: ARWorkoutEngineBuilder</title>
+    <title>JSDoc: Module: Model/ExcerciseSession</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: ARWorkoutEngineBuilder</h1>
+    <h1 class="page-title">Module: Model/ExcerciseSession</h1>
 
     
 
@@ -28,9 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>ARWorkoutEngineBuilder<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Class that is used to build the instance of ARWorkoutEngine in a step-wise manner following <a href="https://en.wikipedia.org/wiki/Builder_pattern">the Gangs of Four design pattern</a>.</div>
+            
         
     
 </header>
@@ -39,16 +38,11 @@
     <div class="container-overview">
     
         
+            <div class="description">This file contains the model functions responsible for performing databse operations for the ExcerciseSession</div>
+        
 
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="ARWorkoutEngineBuilder"><span class="type-signature"></span>new ARWorkoutEngineBuilder<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
+        
+            
 
 
 
@@ -93,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line6">line 6</a>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -123,6 +117,7 @@
 
 
 
+        
     
     </div>
 
@@ -139,6 +134,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~ExerciseSessionSchema"><span class="type-signature">(inner, constant) </span>ExerciseSessionSchema<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Describes the schema of the ExerciseSession document
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -149,7 +210,7 @@
     
 
     
-    <h4 class="name" id="addDrawingCanvas"><span class="type-signature"></span>addDrawingCanvas<span class="signature">(drawingCanvas)</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a>}</span></h4>
+    <h4 class="name" id="~endExerciseSession"><span class="type-signature">(inner) </span>endExerciseSession<span class="signature">(ExerciseSessionObj)</span><span class="type-signature"></span></h4>
     
 
     
@@ -157,7 +218,7 @@
 
 
 <div class="description">
-    Set canvas on which the object animation will be performed.
+    This functions ends the user session data based on the  ExerciseSessionObj passed
 </div>
 
 
@@ -193,13 +254,13 @@
 
         <tr>
             
-                <td class="name"><code>drawingCanvas</code></td>
+                <td class="name"><code>ExerciseSessionObj</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">HTMLCanvasElement</span>
+<span class="param-type">object</span>
 
 
             
@@ -250,7 +311,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line46">line 46</a>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -278,19 +339,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    null
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a></span>
-
-
-    </dd>
-</dl>
 
     
 
@@ -304,7 +357,7 @@
     
 
     
-    <h4 class="name" id="addUserCanvas"><span class="type-signature"></span>addUserCanvas<span class="signature">(userCanvas)</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a>}</span></h4>
+    <h4 class="name" id="~getAverageAccuracy"><span class="type-signature">(inner) </span>getAverageAccuracy<span class="signature">(username)</span><span class="type-signature"> &rarr; {int}</span></h4>
     
 
     
@@ -312,7 +365,7 @@
 
 
 <div class="description">
-    Set user canvas on which to draw user video.
+    This functions calculates the average accuracy of the workouts performed by the user based on the  username passed
 </div>
 
 
@@ -348,578 +401,7 @@
 
         <tr>
             
-                <td class="name"><code>userCanvas</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLCanvasElement</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="addUserStream"><span class="type-signature"></span>addUserStream<span class="signature">(userStream)</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Set user Stream object .
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userStream</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">MediaStream</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="addUserVideo"><span class="type-signature"></span>addUserVideo<span class="signature">(userVideo)</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Set user video element to be processed.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userVideo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLVideoElement</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="build"><span class="type-signature"></span>build<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngine.html">ARWorkoutEngine</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Build ARWorkoutEngine based on the values provided to the ARWorkoutEngineBuilder
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line64">line 64</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ARWorkoutEngine.html">ARWorkoutEngine</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="setWorkoutType"><span class="type-signature"></span>setWorkoutType<span class="signature">(workoutType)</span><span class="type-signature"> &rarr; {<a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Set current workout type.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>workoutType</code></td>
+                <td class="name"><code>username</code></td>
             
 
             <td class="type">
@@ -976,7 +458,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="public_js_AREngineBuilder.js.html">public/js/AREngineBuilder.js</a>, <a href="public_js_AREngineBuilder.js.html#line56">line 56</a>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -1004,6 +486,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    averageAccuracy
+</div>
+
 
 
 <dl>
@@ -1012,11 +498,782 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="ARWorkoutEngineBuilder.html">ARWorkoutEngineBuilder</a></span>
+<span class="param-type">int</span>
 
 
     </dd>
 </dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getMostRecentWorkout"><span class="type-signature">(inner) </span>getMostRecentWorkout<span class="signature">(username)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This functions gets most recent workout performed by the user based on the  username passed
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    workoutType
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getStreak"><span class="type-signature">(inner) </span>getStreak<span class="signature">(username)</span><span class="type-signature"> &rarr; {int}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This functions calculates the number of days user has performed workouts in a month based on the  username passed
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line156">line 156</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    streak
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">int</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getUserSessions"><span class="type-signature">(inner) </span>getUserSessions<span class="signature">(username)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This functions gets previous  user session data based on the  username passed
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    userSessions
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~startExcerciseSession"><span class="type-signature">(inner) </span>startExcerciseSession<span class="signature">(ExerciseSessionObj)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    creates a new excercise session for a specified user
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ExerciseSessionObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    exercise session id
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~updateExerciseSession"><span class="type-signature">(inner) </span>updateExerciseSession<span class="signature">(ExerciseSessionObj)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This functions updates the user session data based on the  ExerciseSessionObj passed
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ExerciseSessionObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_exerciseSession.models.js.html">models/exerciseSession.models.js</a>, <a href="models_exerciseSession.models.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    null
+</div>
+
+
 
     
 

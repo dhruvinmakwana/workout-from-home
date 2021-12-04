@@ -1,12 +1,11 @@
 /**
- * @file auth.js is the root file for the example.
- * It kicks things off.
- * @author Your name goes here
- * @see <a href="https://developers.docusign.com">DocuSign Developer Center</a>
+ * @file auth.js is the main file responsible for authentication and authorization of incoming requests .
+ * 
+ * @author Dhruvin Hasmukh Makwana
  */
 /**
  * Authentication middleware module.
- * @module middleware/auth
+ * @module middleware
  */
 
 const jwt = require("jsonwebtoken");

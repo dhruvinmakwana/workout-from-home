@@ -1,4 +1,8 @@
 /**
+ * @file Class that is used to animate objects on the screen based on the workout activity being performed.
+ * @author Sagar Gupta
+ */
+/**
  * Class that is used to animate objects on the screen based on the workout activity being performed
  */
 class CanvasAnimator{

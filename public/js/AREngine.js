@@ -1,3 +1,7 @@
+/**
+ * @file This calss is the central cordinator between other supportive classes that collectively guide and show progress of the user's workout.
+ * @author Dhruvin Hasmukh Makwana
+ */
 /** Class representing ARWorkout engine. */
 class ARWorkoutEngine {
     static instance

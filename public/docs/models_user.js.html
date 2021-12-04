@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: middleware/auth.js</title>
+    <title>JSDoc: Source: models/user.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: middleware/auth.js</h1>
+    <h1 class="page-title">Source: models/user.js</h1>
 
     
 
@@ -26,57 +26,34 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @file auth.js is the main file responsible for authentication and authorization of incoming requests .
- * 
- * @author Dhruvin Hasmukh Makwana
+            <pre class="prettyprint source linenums"><code>
+/**
+ * @file This file contains the model functions responsible for performing databse operations for the user
+ * @author Girik Prabhakar
  */
 /**
- * Authentication middleware module.
- * @module middleware
+ * This file contains the model functions responsible for performing databse operations for the user
+ * @module Model/User
  */
-
-const jwt = require("jsonwebtoken");
-
+const mongoose = require('mongoose');
 /**
- * perform verification of the token stored in the cookie to validate the request before proceeding further
+ * Describes the schema of the ExerciseSession document
  */
-const verifyToken = (req, res, next) => {
-    const token = req.cookies.access_token;
-    if (!token) {
-      return res.sendStatus(403);
-    }
-    try {
-      const data = jwt.verify(token, process.env.SECRET_KEY);
-      req.username = data.username;
-      req.email = data.email;
-      return next();
-    } catch {
-      return res.sendStatus(403);
-    }
-};
-/**
- * perform verification of the token and based on the result redirect the request to the login screen or the next webpage in line
- */
-const verifyOrRedirect = (req, res, next) => {
-    const token = req.cookies.access_token;
-    if (!token) {
-        return res.redirect('login');
-    }
-    try {
-      const data = jwt.verify(token, process.env.SECRET_KEY);
-      req.username = data.username;
-      req.email = data.email;
-      return next();
-    } catch {
-      return res.redirect('login');
-    }
-};
+const UserSchema = new mongoose.Schema(
+	{
+		username: { type: String, required: true, unique: true },
+		password: {type: String,required: true},
+        email: { type: String, required: true, unique: true},
+        dob: {type: Date, required: true},
+		token: { type: String },
+	},
+	{ collection: 'users' }
+);
 
-module.exports = {
-    verifyToken,
-    verifyOrRedirect
-};</code></pre>
+
+const model = mongoose.model('UserSchema', UserSchema)
+
+module.exports = model</code></pre>
         </article>
     </section>
 
