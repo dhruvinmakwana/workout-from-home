@@ -1,7 +1,7 @@
 
 /**
  * @file This file contains the model functions responsible for performing databse operations for the ExcerciseSession
- * @author Dhruvin Hasmukh Makwana, Darshil Hirenkumar Shah
+ * @author Dhruvin Hasmukh Makwana, Darshil Hirenkumar Shah, ​Mahima Vadlamudi​, Mannat Jyot Singh
  */
 /**
  * This file contains the model functions responsible for performing databse operations for the ExcerciseSession
