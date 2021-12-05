@@ -53,8 +53,12 @@ const login = (req, res) => {
 const logout = (req, res) => {
     const token = req.cookies.access_token;
     console.log(token)
-    return res.clearCookie("access_token").redirect("login");
-
+    res.clearCookie("access_token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
+    return res.redirect("login");
+    
     
 }
 
