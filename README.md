@@ -12,5 +12,6 @@ Installation
 5. Create a new file called .env
 6. Use the smaple enverinment file provided and change the values of environment variables accordingly. 
 
-Demo
-[![Demo](https://github.com/dhruvinmakwana/workout-from-home/blob/master/public/images/output.gif?raw=true)
+## Demo
+
+![Demo](https://github.com/dhruvinmakwana/workout-from-home/blob/master/public/images/output.gif?raw=true)
